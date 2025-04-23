@@ -14,14 +14,30 @@ class MainActivity : AppCompatActivity() {
         
         val showToastButton = findViewById<Button>(R.id.showToastButton)
         val myHeroText = findViewById<TextView>(R.id.textView)
-        myHeroText.setText("My SG");
+        
+        // Get a string config from CF and set it as text
+        val heroText = CFHelper.getString("hero_text", "CF DEMO")
+        myHeroText.setText(heroText)
+        
         val secondScreenButton = findViewById<Button>(R.id.secondScreenButton)
         
+        // Use a feature flag to conditionally show a toast
+        val shouldShowEnhancedToast = CFHelper.getFeatureFlag("enhanced_toast", false)
+        
         showToastButton.setOnClickListener {
-            Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
+            // Record button click event
+            CFHelper.recordEventWithProperties("button_clicked", mapOf("button" to "showToast"))
+            
+            if (shouldShowEnhancedToast) {
+                Toast.makeText(this, "Enhanced toast feature enabled!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show()
+            }
         }
         
         secondScreenButton.setOnClickListener {
+            // Record navigation event
+            CFHelper.recordEventWithProperties("navigation", mapOf("destination" to "SecondActivity"))
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
         }

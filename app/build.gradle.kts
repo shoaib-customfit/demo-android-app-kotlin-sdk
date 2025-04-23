@@ -48,4 +48,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    
+    // CustomFit SDK dependency
+    implementation(files("/Users/shoaibmohammed/Desktop/work/CF/sdk/customfit-kotlin-client-sdk/build/libs/kotlin-client-sdk-1.1.1.jar"))
+    
+    // Required for CustomFit SDK
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp)
+    
+    // Kotlin Logging
+    implementation(libs.kotlin.logging.jvm)
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
 }
